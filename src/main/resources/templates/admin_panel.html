@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Users</title>
+</head>
+
+<body>
+
+<table th:align="center" border="1">
+
+    <h3 th:align="center">User list</h3>
+
+    <tr>
+        <th>No</th>
+        <th>Name</th>
+        <th>E-mail</th>
+        <th>Roles</th>
+        <th>Operations</th>
+    </tr>
+
+    <tr th:each="user, state : ${usersList}"
+        class="row" th:classappend="${state.odd} ? 'odd-row' : 'even-row'">
+
+        <td th:utext="${state.count}">No</td>
+        <td th:utext="${user.getName()}">Name</td>
+        <td th:utext="${user.getEmail()}">Email</td>
+        <td>
+            <p th:each="userRole: ${user.getRoles()}">
+                <span th:text="${userRole.roleName}">Roles</span>
+            </p>
+        </td>
+        <td>
+            <form th:method="POST" th:action="@{/admin/user/{id}(id=${user.getId()})}">
+                <input type="submit" value="edit">
+            </form>
+            <form th:action="@{/admin/rem/{id}(id=${user.getId()})}">
+                <input type="submit" value="del">
+            </form>
+
+        </td>
+    </tr>
+<br><br>
+</table>
+<td th:align="center"> <input type="button" th:method="GET" value="ADD" onclick="location.href = '/admin/addNewUser'"/></td>
+<td th:align="center"> <input type="button" onclick="history.back();" value="Back"/></td>
+<td th:align="center"> <input type="button" value="Logout" onclick="location.href = '/logout'"/></td>
+
+</body>
+</html>

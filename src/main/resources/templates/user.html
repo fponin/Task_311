@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+</head>
+<body>
+
+<form th:align="center" th:method="PATH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+
+
+    <table align="center">
+        <h3>User</h3>
+        <input type="hidden" th:field="*{id}"/>
+        <tr>
+            <td>UserName:</td>
+            <td><input th:field="*{name}" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Email:</td>
+            <td><input th:field="*{email}" type="text"/></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input th:field="*{password}" type="password"/></td>
+        </tr>
+        <tr>
+            <td>Select Roles:</td>
+            <td>
+                <select multiple name="role" th:required="true" class="form-control">
+                    <option th:each="role : ${roles}"
+                            th:value="${role.getRoleName()}"
+                            th:utext="${role.getRoleName()}"
+                            th:selected="${#lists.contains(user.roles, role)}">
+                    </option>
+                </select>
+            </td>
+        </tr>
+        <br><br>
+        <td><input type="submit" value="Save"></td>
+        <td><input type="button" onclick="history.back();" value="Back"/></td>
+        <td><input type="button" value="Logout" onclick="location.href = '/logout'"/></td>
+    </table>
+</form>
+</body>
+</html>

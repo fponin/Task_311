@@ -1,0 +1,23 @@
+package com.fponin.Task_311.myapp_springboot.service;
+
+import com.fponin.Task_311.myapp_springboot.model.Role;
+import com.fponin.Task_311.myapp_springboot.model.User;
+
+import java.util.List;
+
+
+public interface UserService {
+
+    List<User> getAllUsers();
+
+    User findUser(int id);
+
+    void saveUser(User user);
+
+    void updateUser(User user);
+
+    void deleteUser(int id);
+
+    User getUserByName(String name);
+
+}
